@@ -25,7 +25,7 @@ void loop() {
   avg /= 10;
   val = avg;
   if (val >= 734 && val <= 740){
-    lastVal = 'A';
+    lastVal = 'Q';
   }
   else if (val >= 786 && val <= 790){
     lastVal = 'B';
@@ -65,9 +65,11 @@ void loop() {
   }
   if(lastVal != ' ' && prevVal != lastVal && (millis() - lastTimeCall > 500)){
     Serial.println(lastVal);
-    Keyboard.press(Keyboard.KEY_LEFT_GUI);
-    // Keyboard.press(lastVal);
-    
+    Keyboard.press(KEY_LEFT_GUI);
+    Keyboard.press(KEY_LEFT_ALT);
+    Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(lastVal);
+    Keyboard.releaseAll();
     prevVal = lastVal;
     lastVal = ' ';
     lastTimeCall = millis();
