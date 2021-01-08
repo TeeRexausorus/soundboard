@@ -2,7 +2,7 @@
 
 #define btns A0
 int val = 0;
-int prevAnalogVal = 0;
+int analogVal = 0;
 char prevVal = ' ';
 char currentVal = ' ';
 
@@ -29,7 +29,7 @@ void loop() {
   analogVal = analogRead(btns);
 
   //on remet la valeur moyennée à 0
-  val = 0
+  val = 0;
   // Si la valeur est inférieure à un seuil arbitraire, on met un délais et on saute le traitement
   if (analogVal < 25){
     delay(200);
@@ -37,7 +37,7 @@ void loop() {
 
   for (int i = 0; i < numReadings; ++i){
     // On soustrait la valeur lue dans la "case" du tampon qu'on va remplir
-    total = total - readings[readIndex]
+    total = total - readings[readIndex];
     readings[readIndex] = analogVal;
     // On ajoute la valeur lue au total
     total = total + readings[readIndex];
@@ -54,40 +54,40 @@ void loop() {
 
   //Pour tout l'enchaînement à suivre, on affecte une lettre à une variable
   if (val >= 732 && val <= 740){
-    currentVal = 'Q';
+    currentVal = 0xF0; // KEY_F13
   }
   else if (val >= 786 && val <= 793){
-    currentVal = 'B';
+    currentVal = 0xF1; // KEY_F14
   }
   else if (val >= 837 && val <= 843){
-    currentVal = 'C';
+    currentVal = 0xF2;
   }
   else if (val >= 630 && val <= 640){
-    currentVal = 'D';
+    currentVal = 0xF3;
   }
   else if (val >= 536 && val <= 545){
-    currentVal = 'E';
+    currentVal = 0xF4;
   }
   else if (val >= 674 && val <= 681){
-    currentVal = 'F';
+    currentVal = 0xF5;
   }
   else if (val >= 650 && val <= 660){
-    currentVal = 'G';
+    currentVal = 0xF6;
   }
   else if (val >= 610 && val <= 620){
-    currentVal = 'H';
+    currentVal = 0xF7;
   }
   else if (val > 580 && val <= 590){
-    currentVal = 'I';
+    currentVal = 0xF8;
   }
   else if (val >= 690 && val <= 720){
-    currentVal = 'J';
+    currentVal = 0xF9;
   }
   else if (val >= 550 && val <= 561){
-    currentVal = 'K';
+    currentVal = 0xFA;
   }
   else if (val >= 850 && val <= 870){
-    currentVal = 'L';
+    currentVal = 0xFB;
   }
   else{
     Serial.println(average);
@@ -100,9 +100,9 @@ void loop() {
     // pour la liste des modificateurs disponibles (KEY_F13 à KEY_F24 peuvent être intéressants à exploiter :) )
 
     // On  presse les touches puis on les relâche
-    Keyboard.press(KEY_LEFT_GUI);
-    Keyboard.press(KEY_LEFT_ALT);
-    Keyboard.press(KEY_LEFT_CTRL);
+    // Keyboard.press(KEY_LEFT_GUI);
+    // Keyboard.press(KEY_LEFT_ALT);
+    // Keyboard.press(KEY_LEFT_CTRL);
     Keyboard.press(currentVal);
     Keyboard.releaseAll();
 
