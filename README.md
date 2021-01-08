@@ -16,6 +16,7 @@ Pensez à configurer le microcontrôleur dans le menu outils:
 Définir le Type de carte sur Arduino Leonardo, et le Port sur le port où est branché la carte.
 
 Une fois les modifications faites, téléverser le code:
+
 ![](documentation/upload.png)
 
 And voilà ! :)
