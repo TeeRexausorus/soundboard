@@ -32,7 +32,7 @@ void loop() {
   val = 0;
   // Si la valeur est inférieure à un seuil arbitraire, on met un délais et on saute le traitement
   if (analogVal < 25){
-    delay(200);
+    delay(100);
   }
 
   for (int i = 0; i < numReadings; ++i){
@@ -100,10 +100,11 @@ void loop() {
     // pour la liste des modificateurs disponibles (KEY_F13 à KEY_F24 peuvent être intéressants à exploiter :) )
 
     // On  presse les touches puis on les relâche
-    // Keyboard.press(KEY_LEFT_GUI);
     // Keyboard.press(KEY_LEFT_ALT);
     // Keyboard.press(KEY_LEFT_CTRL);
+    Keyboard.press(KEY_LEFT_SHIFT);
     Keyboard.press(currentVal);
+    delay(50);
     Keyboard.releaseAll();
 
     // On sauvegarde la valeur envoyée, ainsi que la dernière fois qu'on a envoyé une combinaison de touches
@@ -114,12 +115,11 @@ void loop() {
     skipped = !skipped;
 
 
-    delay(200);
   } else if (!skipped) {
     skipped = !skipped;
   }
   // on réinitialise les valeurs pour pouvoir rappeler le même bouton à la suite
-  if (millis() - lastTimeCall > 1000){
+  if (millis() - lastTimeCall > 0){
     currentVal = ' ';
     prevVal = ' ';
   }
