@@ -1,4 +1,5 @@
 #include <Keyboard.h>
+#include "confButtons.h"
 
 #define btns A0
 int val = 0;
@@ -50,42 +51,42 @@ void loop() {
   // On calcule la moyenne:
   val = total / numReadings;
 
-  //Pour tout l'enchaînement à suivre, on affecte une lettre à une variable
-  if (val >= 732 && val <= 740){
+  //Pour tout l'enchaînement à suivre, on affecte une touche à une variable
+  if (val >= key01min && val <= key01max){
     currentVal = 0xF0; // KEY_F13
   }
-  else if (val >= 786 && val <= 793){
+  else if (val >= key02min && val <= key02max){
     currentVal = 0xF1; // KEY_F14
   }
-  else if (val >= 837 && val <= 843){
-    currentVal = 0xF2;
+  else if (val >= key03min && val <= key03max){
+    currentVal = 0xF2; // KEY_F15
   }
-  else if (val >= 630 && val <= 640){
-    currentVal = 0xF3;
+  else if (val >= key04min && val <= key04max){
+    currentVal = 0xF3; // KEY_F16
   }
-  else if (val >= 536 && val <= 545){
-    currentVal = 0xF4;
+  else if (val >= key05min && val <= key05max){
+    currentVal = 0xF4; // KEY_F17
   }
-  else if (val >= 674 && val <= 681){
-    currentVal = 0xF5;
+  else if (val >= key06min && val <= key06max){
+    currentVal = 0xF5; // KEY_F18
   }
-  else if (val >= 650 && val <= 660){
-    currentVal = 0xF6;
+  else if (val >= key07min && val <= key07max){
+    currentVal = 0xF6; // KEY_F19
   }
-  else if (val >= 610 && val <= 620){
-    currentVal = 0xF7;
+  else if (val >= key08min && val <= key08max){
+    currentVal = 0xF7; // KEY_F20
   }
-  else if (val > 580 && val <= 590){
-    currentVal = 0xF8;
+  else if (val > key09min && val <= key09max){
+    currentVal = 0xF8; // KEY_F21
   }
-  else if (val >= 690 && val <= 720){
-    currentVal = 0xF9;
+  else if (val >= key10min && val <= key10max){
+    currentVal = 0xF9; // KEY_F22
   }
-  else if (val >= 550 && val <= 561){
-    currentVal = 0xFA;
+  else if (val >= key11min && val <= key11max){
+    currentVal = 0xFA; // KEY_F23
   }
-  else if (val >= 850 && val <= 870){
-    currentVal = 0xFB;
+  else if (val >= key12min && val <= key12max){
+    currentVal = 0xFB; // KEY_F24
   }
   else{
     Serial.println(average);
