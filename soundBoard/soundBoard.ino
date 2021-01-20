@@ -15,7 +15,6 @@ int readings[numReadings];      // le tampon pour le lissage des valeurs lues
 int readIndex = 0;              // L'index de la lecture courante
 int total = 0;                  // La somme des valeurs lues
 int average = 0;                // La moyenne des valeurs lues
-bool skipped = false;           // Un booléen pour
 
 void setup() {
   Serial.begin(9600);
@@ -49,8 +48,7 @@ void loop() {
     }
   }
   // On calcule la moyenne:
-  average = total / numReadings;
-  val = average;
+  val = total / numReadings;
 
   //Pour tout l'enchaînement à suivre, on affecte une lettre à une variable
   if (val >= 732 && val <= 740){
@@ -94,14 +92,12 @@ void loop() {
   }
 
   // Si currentVal est rempli, et qu'il n'a pas déjà été pressé dans la demi-seconde qui précède
-  if(currentVal != ' ' && prevVal != currentVal && (millis() - lastTimeCall > 500) && skipped){
+  if(currentVal != ' ' && prevVal != currentVal && (millis() - lastTimeCall > 500)){
 
     // On peut changer ici les touches du clavier pressées, voir https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardmodifiers/
     // pour la liste des modificateurs disponibles (KEY_F13 à KEY_F24 peuvent être intéressants à exploiter :) )
 
     // On  presse les touches puis on les relâche
-    // Keyboard.press(KEY_LEFT_ALT);
-    // Keyboard.press(KEY_LEFT_CTRL);
     Keyboard.press(KEY_LEFT_SHIFT);
     Keyboard.press(currentVal);
     delay(50);
@@ -112,14 +108,11 @@ void loop() {
     prevVal = currentVal;
     currentVal = ' ';
     lastTimeCall = millis();
-    skipped = !skipped;
 
 
-  } else if (!skipped) {
-    skipped = !skipped;
   }
   // on réinitialise les valeurs pour pouvoir rappeler le même bouton à la suite
-  if (millis() - lastTimeCall > 0){
+  if (millis() - lastTimeCall > 10){
     currentVal = ' ';
     prevVal = ' ';
   }
