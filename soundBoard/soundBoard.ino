@@ -16,7 +16,7 @@ int readings[numReadings];      // le tampon pour le lissage des valeurs lues
 int readIndex = 0;              // L'index de la lecture courante
 int total = 0;                  // La somme des valeurs lues
 int average = 0;                // La moyenne des valeurs lues
-
+int mac = 0;
 void setup() {
   Serial.begin(9600);
   // On met toutes les valeurs à 0
@@ -50,7 +50,6 @@ void loop() {
   }
   // On calcule la moyenne:
   val = total / numReadings;
-
   //Pour tout l'enchaînement à suivre, on affecte une touche à une variable
   if (val >= key01min && val <= key01max){
     currentVal = 0xF0; // KEY_F13
@@ -63,6 +62,7 @@ void loop() {
   }
   else if (val >= key04min && val <= key04max){
     currentVal = 0xF3; // KEY_F16
+    //Keyboard.print("C'est la faute du PPO");
   }
   else if (val >= key05min && val <= key05max){
     currentVal = 0xF4; // KEY_F17
@@ -77,38 +77,48 @@ void loop() {
     currentVal = 0xF7; // KEY_F20
   }
   else if (val > key09min && val <= key09max){
-    currentVal = 0xF8; // KEY_F21
+    currentVal = 0x21; // KEY_F13
+    mac = 1;
   }
   else if (val >= key10min && val <= key10max){
-    currentVal = 0xF9; // KEY_F22
+    currentVal = 0x26; // KEY_F14
+    mac = 1;
   }
   else if (val >= key11min && val <= key11max){
-    currentVal = 0xFA; // KEY_F23
+    currentVal = 0x28; // KEY_F15
+    mac = 1;
   }
   else if (val >= key12min && val <= key12max){
-    currentVal = 0xFB; // KEY_F24
+    currentVal = 0x29; // KEY_F16
+    mac = 1;
   }
-  else{
-    Serial.println(average);
+  else if (val > 0){
+    Serial.println(val);
   }
 
   // Si currentVal est rempli, et qu'il n'a pas déjà été pressé dans la demi-seconde qui précède
   if(currentVal != ' ' && prevVal != currentVal && (millis() - lastTimeCall > 500)){
-
+    // Serial.println(currentVal);
     // On peut changer ici les touches du clavier pressées, voir https://www.arduino.cc/reference/en/language/functions/usb/keyboard/keyboardmodifiers/
     // pour la liste des modificateurs disponibles (KEY_F13 à KEY_F24 peuvent être intéressants à exploiter :) )
 
     // On  presse les touches puis on les relâche
-    Keyboard.press(KEY_LEFT_SHIFT);
-    Keyboard.press(currentVal);
-    delay(50);
+    if (currentVal != -1) {
+      if (mac == 1){
+        Keyboard.press(KEY_LEFT_GUI);
+      }
+      Keyboard.press(KEY_LEFT_SHIFT);
+      Keyboard.press(currentVal);
+      mac = 0;
+    }
+    delay(100);
     Keyboard.releaseAll();
-
     // On sauvegarde la valeur envoyée, ainsi que la dernière fois qu'on a envoyé une combinaison de touches
     // Pour ne pas spammer la dite combinaison
     prevVal = currentVal;
     currentVal = ' ';
     lastTimeCall = millis();
+    mac = 0;
 
 
   }
