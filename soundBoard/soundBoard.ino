@@ -15,7 +15,6 @@ const int numReadings = 20;
 int readings[numReadings];      // le tampon pour le lissage des valeurs lues
 int readIndex = 0;              // L'index de la lecture courante
 int total = 0;                  // La somme des valeurs lues
-int average = 0;                // La moyenne des valeurs lues
 
 void setup() {
   Serial.begin(9600);
@@ -89,7 +88,7 @@ void loop() {
     currentVal = 0xFB; // KEY_F24
   }
   else{
-    Serial.println(average);
+    Serial.println(val);
   }
 
   // Si currentVal est rempli, et qu'il n'a pas déjà été pressé dans la demi-seconde qui précède
